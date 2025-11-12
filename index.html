@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Attendance System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Smart Attendance System</h1>
+
+    <div class="date-section">
+      <label for="attendance-date">Select date:</label>
+      <input type="date" id="attendance-date">
+    </div>
+
+    <div class="student-name-input">
+      <input type="number" id="student-roll" placeholder="Roll">
+      <input type="text" id="student-name" placeholder="Student Name">
+      <button onclick="addStudent()">Add Student</button>
+    </div>
+
+    <table id="attendance-table">
+      <thead>
+        <tr>
+          <th>Roll</th>
+          <th>Student Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <footer>
+      <p class="f-p">Made by JPI Student <b>Rakib</b> © All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
