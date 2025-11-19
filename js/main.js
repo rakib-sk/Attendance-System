@@ -1,13 +1,11 @@
 const inputName = document.getElementById("student-name");
 const rollInput = document.getElementById("student-roll");
 const dateInput = document.getElementById("attendance-date");
+const periodInput = document.getElementById("attendance-period");
 const tableBody = document.querySelector("#attendance-table tbody");
 
 let students = JSON.parse(localStorage.getItem("students")) || [];
 let attendanceData = JSON.parse(localStorage.getItem("attendanceData")) || {};
-
-
-
 
 window.onload = function() {
   if (!localStorage.getItem("students")) localStorage.setItem("students", JSON.stringify([]));
@@ -17,11 +15,9 @@ window.onload = function() {
   attendanceData = JSON.parse(localStorage.getItem("attendanceData"));
 
   renderTable();
-}
+};
 
-
-
-
+// Add Student
 function addStudent() {
   const name = inputName.value.trim();
   const rollNo = parseInt(rollInput.value.trim());
@@ -41,26 +37,25 @@ function addStudent() {
   renderTable();
 }
 
-
-
-
-
+// Delete
 function deleteStudent(rollNo) {
   if (confirm("Are you sure to delete this student?")) {
     students = students.filter(s => s.roll !== rollNo);
     localStorage.setItem("students", JSON.stringify(students));
 
     for (let date in attendanceData) {
-      if (attendanceData[date][rollNo] !== undefined) delete attendanceData[date][rollNo];
+      for (let period in attendanceData[date]) {
+        if (attendanceData[date][period][rollNo] !== undefined)
+          delete attendanceData[date][period][rollNo];
+      }
     }
+
     localStorage.setItem("attendanceData", JSON.stringify(attendanceData));
     renderTable();
   }
 }
 
-
-
-
+// Edit Roll
 function editRoll(oldRoll) {
   const newRoll = parseInt(prompt("Enter new roll number:"));
   if (!newRoll) return;
@@ -73,9 +68,11 @@ function editRoll(oldRoll) {
   student.roll = newRoll;
 
   for (let date in attendanceData) {
-    if (attendanceData[date][oldRoll] !== undefined) {
-      attendanceData[date][newRoll] = attendanceData[date][oldRoll];
-      delete attendanceData[date][oldRoll];
+    for (let period in attendanceData[date]) {
+      if (attendanceData[date][period][oldRoll] !== undefined) {
+        attendanceData[date][period][newRoll] = attendanceData[date][period][oldRoll];
+        delete attendanceData[date][period][oldRoll];
+      }
     }
   }
 
@@ -84,18 +81,20 @@ function editRoll(oldRoll) {
   renderTable();
 }
 
-
-
+// Render Table
 function renderTable() {
   const selectedDate = dateInput.value || new Date().toISOString().split("T")[0];
+  const selectedPeriod = periodInput.value;
+
   tableBody.innerHTML = "";
 
   if (!attendanceData[selectedDate]) attendanceData[selectedDate] = {};
+  if (!attendanceData[selectedDate][selectedPeriod]) attendanceData[selectedDate][selectedPeriod] = {};
 
   students.forEach(student => {
-    const status = attendanceData[selectedDate][student.roll] || "";
-    const row = document.createElement("tr");
+    const status = attendanceData[selectedDate][selectedPeriod][student.roll] || "";
 
+    const row = document.createElement("tr");
     row.innerHTML = `
       <td>${student.roll}</td>
       <td>${student.name}</td>
@@ -118,20 +117,21 @@ function renderTable() {
   });
 }
 
-// Change Date
-dateInput.addEventListener("change", renderTable);
-
-// Attendance Functions
+// Attendance
 function markPresent(rollNo) {
-  const selectedDate = dateInput.value || new Date().toISOString().split("T")[0];
-  attendanceData[selectedDate][rollNo] = "Present";
+  const date = dateInput.value || new Date().toISOString().split("T")[0];
+  const period = periodInput.value;
+
+  attendanceData[date][period][rollNo] = "Present";
   saveAttendance();
   renderTable();
 }
 
 function markAbsent(rollNo) {
-  const selectedDate = dateInput.value || new Date().toISOString().split("T")[0];
-  attendanceData[selectedDate][rollNo] = "Absent";
+  const date = dateInput.value || new Date().toISOString().split("T")[0];
+  const period = periodInput.value;
+
+  attendanceData[date][period][rollNo] = "Absent";
   saveAttendance();
   renderTable();
 }
@@ -139,3 +139,7 @@ function markAbsent(rollNo) {
 function saveAttendance() {
   localStorage.setItem("attendanceData", JSON.stringify(attendanceData));
 }
+
+// Change date or period reload table
+dateInput.addEventListener("change", renderTable);
+periodInput.addEventListener("change", renderTable);
