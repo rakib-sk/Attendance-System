@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f5f9;
+  color: #333;
+}
+
+.container {
+  background: #fff;
+  width: 90%;
+  max-width: 750px;
+  padding: 25px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+h1 {
+  font-size: 26px;
+  color: green;
+  margin-bottom: 20px;
+}
+
+.date-section {
+  margin-bottom: 20px;
+}
+
+.date-section label {
+  font-weight: bold;
+}
+
+.date-section input[type="date"],
+.date-section select {
+  padding: 8px 10px;
+  margin-left: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+}
+
+.student-name-input {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.student-name-input input {
+  padding: 10px 12px;
+  border: 2px solid black;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.student-name-input button {
+  background: green;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+thead {
+  background: green;
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+tbody tr:nth-child(even) { 
+  
+  background: #f2f8ff; 
+}
+tbody tr:hover {
+  
+  background: #e1f0ff; 
+  
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+button {
+  cursor: pointer;
+  
+}
+
+.present-btn { 
+  background: #00c851;
+  color: white;
+  height: 30px;
+  
+}
+
+
+.absent-btn { 
+  
+  background: #ff4444; 
+  height: 30px;
+  color: white;
+  
+}
+.edit-roll-btn { 
+  background: orange; 
+  color: white;
+  
+}
+
+
+.delete-btn {
+  background: black; 
+  color: white;
+  margin-bottom: 10px;
+  
+}
+
+.present-label { 
+  color: green; 
+  font-weight: bold; 
+}
+
+
+
+.absent-label { 
+  color: red; 
+  font-weight: bold; 
+}
+
+footer { 
+  margin-top: 20px; 
+}
+.f-p { 
+  font-size: 13px;
+}
