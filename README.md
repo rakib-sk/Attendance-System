@@ -5,7 +5,7 @@
 
 Smart Attendance System হলো একটি ওয়েব-বেসড অ্যাপ্লিকেশন যা শিক্ষার্থীদের হাজিরা (Attendance) ট্র্যাক এবং ম্যানেজ করার জন্য তৈরি। এটি **HTML, CSS, JavaScript** ব্যবহার করে তৈরি এবং **Local Storage** এ ডেটা সংরক্ষণ করে।  
 
-**Live Demo:** [Click Here](#) *(আপনি GitHub Pages বা অন্য কোথাও হোস্ট করলে link বসাতে পারবেন)*
+**Live Demo:** [Click Here](https://smartattendencesystemrakib.netlify.app) 
 
 ---
 
