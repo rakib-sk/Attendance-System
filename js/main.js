@@ -143,3 +143,54 @@ function saveAttendance() {
 // Change date or period reload table
 dateInput.addEventListener("change", renderTable);
 periodInput.addEventListener("change", renderTable);
+
+
+
+
+
+function downloadJSON() {
+  const data = { students, attendanceData };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "attendance-data.json";
+  link.click();
+}
+
+function downloadCSV() {
+  let csv = "Date,Period,Roll,Name,Status\n";
+  for (let date in attendanceData) {
+    for (let period in attendanceData[date]) {
+      for (let roll in attendanceData[date][period]) {
+        const status = attendanceData[date][period][roll];
+        const student = students.find(s => s.roll == roll);
+        csv += `${date},${period},${roll},${student?.name || ""},${status}\n`;
+      }
+    }
+  }
+  const blob = new Blob([csv], { type: "text/csv" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "attendance.csv";
+  link.click();
+}
+
+function downloadXLSX() {
+  let rows = [["Date", "Period", "Roll", "Name", "Status"]];
+  for (let date in attendanceData) {
+    for (let period in attendanceData[date]) {
+      for (let roll in attendanceData[date][period]) {
+        const status = attendanceData[date][period][roll];
+        const student = students.find(s => s.roll == roll);
+        rows.push([date, period, roll, student?.name || "", status]);
+      }
+    }
+  }
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Attendance");
+  XLSX.writeFile(wb, "attendance.xlsx");
+}
+
+dateInput.addEventListener("change", renderTable);
+periodInput.addEventListener("change", renderTable);
