@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- XLSX Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <title>Smart Attendance System</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -52,6 +54,18 @@
       <tbody></tbody>
     </table>
 
+    <div class="export-section">
+      <div class="dropdown">
+        <button class="dropbtn">Download ▼</button>
+        <div class="dropdown-content">
+          <a href="#" onclick="downloadCSV()">CSV</a>
+          <a href="#" onclick="downloadXLSX()">XLSX</a>
+          <a href="#" onclick="downloadJSON()">JSON</a>
+        </div>
+      </div>
+    </div>
+    
+    
     <footer>
       <p class="f-p">Made by JPI Student <b>Rakib</b> © All Rights Reserved.</p>
     </footer>
